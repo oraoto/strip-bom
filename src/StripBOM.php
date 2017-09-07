@@ -31,7 +31,6 @@ class StripBOM
             }
             $len += strlen($str);
             fseek($file, $start);
-            echo "write at $start: $str, " . strlen($str) . PHP_EOL;
             fwrite($file, $str);
             $start += 4096;
         } while (true);
