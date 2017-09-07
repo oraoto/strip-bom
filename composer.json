@@ -1,0 +1,20 @@
+{
+    "name": "oraoto/strip-bom",
+    "description": "Util to strip bom from file",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Oraoto",
+            "email": "melegant2@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Oraoto\\StripBOM\\": "src"
+        }
+    }
+}
