@@ -17,7 +17,7 @@ class StripBOM
         return (substr($head, 0, 3) == static::UTF8);
     }
 
-    public static function stripBOM($path)
+    public static function stripBOM($path, $blockSize = 4096, $inplace = false)
     {
         $file = fopen($path, 'r+');
 
@@ -25,16 +25,22 @@ class StripBOM
         $len = 0;
         do {
             $ok = fseek($file, $start + 3);
-            $str = fread($file, 4096);
+            $str = fread($file, $blockSize);
             if ($str === false || $str === "") {
                 break;
             }
             $len += strlen($str);
-            fseek($file, $start);
-            fwrite($file, $str);
-            $start += 4096;
+            if ($inplace) {
+                fseek($file, $start);
+                fwrite($file, $str);
+            } else {
+                echo $str;
+            }
+            $start += $blockSize;
         } while (true);
-        ftruncate($file, $len);
+        if ($inplace) {
+            ftruncate($file, $len);
+        }
         fclose($file);
     }
 }
